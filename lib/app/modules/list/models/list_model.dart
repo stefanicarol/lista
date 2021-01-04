@@ -22,10 +22,7 @@ class ListModel {
   }
 
   factory ListModel.fromJson(Map<String, dynamic> json) {
-    return ListModel(
-      title: json['title'],
-      id: json['id'],
-    );
+    return ListModel(title: json['title'], id: json['id']);
   }
 
   Map<String, dynamic> toJson() => {};

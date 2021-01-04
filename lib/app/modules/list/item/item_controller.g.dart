@@ -24,8 +24,45 @@ mixin _$ItemController on _ItemControllerBase, Store {
     });
   }
 
+  final _$quantityAtom = Atom(name: '_ItemControllerBase.quantity');
+
+  @override
+  int get quantity {
+    _$quantityAtom.reportRead();
+    return super.quantity;
+  }
+
+  @override
+  set quantity(int value) {
+    _$quantityAtom.reportWrite(value, super.quantity, () {
+      super.quantity = value;
+    });
+  }
+
   final _$_ItemControllerBaseActionController =
       ActionController(name: '_ItemControllerBase');
+
+  @override
+  void increment() {
+    final _$actionInfo = _$_ItemControllerBaseActionController.startAction(
+        name: '_ItemControllerBase.increment');
+    try {
+      return super.increment();
+    } finally {
+      _$_ItemControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void decrement() {
+    final _$actionInfo = _$_ItemControllerBaseActionController.startAction(
+        name: '_ItemControllerBase.decrement');
+    try {
+      return super.decrement();
+    } finally {
+      _$_ItemControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void getList() {
@@ -39,9 +76,32 @@ mixin _$ItemController on _ItemControllerBase, Store {
   }
 
   @override
+  void save(ItemModel model) {
+    final _$actionInfo = _$_ItemControllerBaseActionController.startAction(
+        name: '_ItemControllerBase.save');
+    try {
+      return super.save(model);
+    } finally {
+      _$_ItemControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void delete(ItemModel model) {
+    final _$actionInfo = _$_ItemControllerBaseActionController.startAction(
+        name: '_ItemControllerBase.delete');
+    try {
+      return super.delete(model);
+    } finally {
+      _$_ItemControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-itemList: ${itemList}
+itemList: ${itemList},
+quantity: ${quantity}
     ''';
   }
 }

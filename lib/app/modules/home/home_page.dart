@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'home_controller.dart';
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeController> {
+class _HomePageState extends State<HomePage> {
   //use 'controller' variable to access controller
 
   @override
@@ -64,7 +62,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       icon: Icon(Icons.format_list_numbered),
                       color: Colors.deepPurple,
                       iconSize: 100,
-                      onPressed: () {},
+                      onPressed: () {
+                        Modular.to.pushNamed("/item");
+                      },
                     ),
                     Text('Lista de Lembretes'),
                   ],

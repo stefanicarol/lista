@@ -1,17 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:listacompra/app/modules/home/models/item_model.dart';
-
+import 'package:listacompra/app/modules/list/item/models/item_model.dart';
+import 'package:listacompra/app/modules/list/list_controller.dart';
 import 'interfaces/item_repository_interface.dart';
 
 class ItemRepository extends Disposable implements IItemRepository {
   final FirebaseFirestore firestore;
-  final ItemModel model;
+  final homeController = Modular.get<ListController>();
 
-  ItemRepository({@required this.model, this.firestore});
+  ItemRepository({this.firestore});
 
-  //dispose will be called automatically
   @override
   void dispose() {}
 
@@ -19,8 +17,8 @@ class ItemRepository extends Disposable implements IItemRepository {
   Stream<List<ItemModel>> get() {
     return FirebaseFirestore.instance
         .collection('todo')
-        .doc(model.listModel.reference.id)
-        .collection(model.title)
+        .doc(homeController.firebaseCollection)
+        .collection(homeController.firebaseCollection)
         .orderBy('status', descending: false)
         .snapshots()
         .map((query) =>
@@ -31,9 +29,7 @@ class ItemRepository extends Disposable implements IItemRepository {
   Future<Stream<ItemModel>> getByDocumentId(String documentId) async {
     return firestore
         .collection('todo')
-        .doc(model.listModel.reference.id)
-        .collection(model.title)
-        .doc()
+        .doc(homeController.firebaseCollection)
         .snapshots()
         .map((doc) => ItemModel.fromDocument(doc));
   }
@@ -42,28 +38,27 @@ class ItemRepository extends Disposable implements IItemRepository {
   Future save(ItemModel model) async {
     var total = (await FirebaseFirestore.instance
             .collection('todo')
-            .doc(model.listModel.reference.id)
-            .collection(model.title)
+            .doc(homeController.firebaseCollection)
+            .collection(homeController.firebaseCollection)
             .get())
         .docs
         .length;
-
     if (model.reference == null) {
       model.reference = await FirebaseFirestore.instance
           .collection('todo')
-          .doc(model.listModel.reference.id)
-          .collection(model.title)
+          .doc(homeController.firebaseCollection)
+          .collection(homeController.firebaseCollection)
           .add({
         'title': model.title,
         'position': total,
+        'quantity': model.quantity,
         'status': model.status,
-        'quantidade': model.quantidade,
       });
     } else {
       model.reference.update({
         'title': model.title,
+        'quantity': model.quantity,
         'status': model.status,
-        'quantidade': model.quantidade,
       });
     }
   }

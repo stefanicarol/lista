@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:listacompra/app/modules/home/models/list_model.dart';
 
 import 'list_controller.dart';
+import 'models/list_model.dart';
 
 class ListPage extends StatefulWidget {
   final String title;
@@ -96,8 +96,10 @@ class _ListPageState extends ModularState<ListPage, ListController> {
                               color: Colors.deepPurple,
                             ),
                             onPressed: () {
-                              print(model.title);
-                              Modular.to.pushNamed("/list/item/${model.title}");
+                              controller.firebaseCollection =
+                                  model.reference.id;
+                              controller.firebaseDoc = model.title;
+                              Modular.to.pushNamed("/item/");
                             },
                           ),
                         ),

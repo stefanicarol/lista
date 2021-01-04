@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:listacompra/app/modules/home/models/list_model.dart';
 
 import '../models/list_model.dart';
 import 'interfaces/todo_repository_interface.dart';
 
 class TodoRepository extends Disposable implements ITodoRepository {
   final FirebaseFirestore firestore;
+  // final homeController = Modular.get<ListController>();
 
   TodoRepository({@required this.firestore});
 
@@ -42,6 +42,7 @@ class TodoRepository extends Disposable implements ITodoRepository {
     if (model.reference == null) {
       model.reference =
           await FirebaseFirestore.instance.collection('todo').add({
+        //'reference': homeController.firebaseDoc,
         'title': model.title,
         'position': total,
       });

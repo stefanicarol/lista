@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:listacompra/app/modules/home/models/list_model.dart';
-import 'package:listacompra/app/modules/home/services/interfaces/todo_service_interfaces.dart';
+import 'package:listacompra/app/modules/list/services/interfaces/todo_service_interfaces.dart';
 import 'package:mobx/mobx.dart';
+
+import 'item/models/item_model.dart';
+import 'models/list_model.dart';
 
 part 'list_controller.g.dart';
 
@@ -11,6 +13,10 @@ class ListController = _ListControllerBase with _$ListController;
 
 abstract class _ListControllerBase with Store {
   final ITodoService todoService;
+
+  String firebaseDoc = '';
+  String firebaseCollection = '';
+  ItemModel itemModel;
 
   @observable
   ObservableStream<List<ListModel>> todoList;

@@ -1,4 +1,4 @@
-import 'package:listacompra/app/modules/home/models/list_model.dart';
+import 'package:listacompra/app/modules/list/models/list_model.dart';
 
 abstract class ITodoService {
   Stream<List<ListModel>> get();
