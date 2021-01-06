@@ -1,6 +1,7 @@
-# listacompras
+# Listas Compartilhadas
 
-Lista de Compras 
+Listas Compartilhadas
+
 
 ## Getting Started
 
