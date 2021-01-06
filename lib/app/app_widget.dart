@@ -9,8 +9,8 @@ class AppWidget extends StatelessWidget {
       title: 'Flutter Slidy - Lista Compartilhada',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.deepPurple,
-        primarySwatch: Colors.deepPurple,
+        primaryColor: Colors.blueGrey[600],
+        primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/',

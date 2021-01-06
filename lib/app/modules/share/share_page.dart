@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:listacompra/app/modules/home/home_controller.dart';
+import 'package:listacompra/app/modules/list/list_controller.dart';
+import 'package:listacompra/app/modules/list/models/list_model.dart';
 
-import 'list_controller.dart';
-import 'models/list_model.dart';
-
-class ListPage extends StatefulWidget {
+class SharePage extends StatefulWidget {
   final String title;
 
-  const ListPage({Key key, this.title = "Minhas Listas"}) : super(key: key);
+  const SharePage({Key key, this.title = "Listas Compartilhadas"})
+      : super(key: key);
 
   @override
-  _ListPageState createState() => _ListPageState();
+  _SharePageState createState() => _SharePageState();
 }
 
-class _ListPageState extends ModularState<ListPage, ListController> {
+class _SharePageState extends ModularState<SharePage, ListController> {
   final homeController = Modular.get<HomeController>();
 
   @override
@@ -27,7 +27,6 @@ class _ListPageState extends ModularState<ListPage, ListController> {
       ),
       body: Column(
         children: [
-          _addFirebase(),
           Expanded(
             child: Observer(builder: (_) {
               if (controller.todoList.data == null) {
@@ -62,7 +61,8 @@ class _ListPageState extends ModularState<ListPage, ListController> {
                     itemCount: list.length,
                     itemBuilder: (_, index) {
                       var model = list[index];
-                      if (model.owner == homeController.auth.user.uid) {
+                      if (model.share
+                          .contains(homeController.auth.user.email)) {
                         return Dismissible(
                           key: Key(
                               DateTime.now().millisecondsSinceEpoch.toString()),
@@ -82,12 +82,12 @@ class _ListPageState extends ModularState<ListPage, ListController> {
                               print(model.title);
                               print(model.reference.id);
 
-                              _showDialogEdit(model: model);
+                              // _showDialogEdit(model: model);
                             },
                             title: Text(model.title),
                             leading: IconButton(
                               icon: Icon(
-                                Icons.share,
+                                Icons.library_books,
                                 color: Colors.blueGrey,
                               ),
                               onPressed: () {
@@ -131,7 +131,7 @@ class _ListPageState extends ModularState<ListPage, ListController> {
     );
   }
 
-  _showDialogEdit({ListModel model}) {
+  _showDialog({ListModel model}) {
     model ??= ListModel();
     showDialog(
         context: context,
@@ -163,81 +163,5 @@ class _ListPageState extends ModularState<ListPage, ListController> {
             ],
           );
         });
-  }
-
-  _showDialog({ListModel model}) {
-    final _itemController = TextEditingController();
-    model ??= ListModel();
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            title: Text('Compartilhar Lista'),
-            content: TextFormField(
-              controller: _itemController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'E-mail: ',
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Modular.to.pop();
-                },
-                child: Text('Cancelar'),
-              ),
-              FlatButton(
-                onPressed: () {
-                  model.share.add(_itemController.text);
-                  //model.share = _itemController.text;
-                  controller.share(model);
-                  Modular.to.pop();
-                },
-                child: Text('Compartilhar'),
-              ),
-            ],
-          );
-        });
-  }
-
-  _addFirebase({ListModel model}) {
-    final _itemController = TextEditingController();
-
-    void _reset() {
-      setState(() {
-        _itemController.text = '';
-      });
-    }
-
-    model ??= ListModel();
-    return Container(
-      padding: EdgeInsets.fromLTRB(17.0, 1.0, 7.0, 1.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextFormField(
-              controller: _itemController,
-              decoration: InputDecoration(
-                labelText: 'Nova Lista',
-                labelStyle: TextStyle(color: Colors.blueGrey),
-              ),
-            ),
-          ),
-          RaisedButton(
-            onPressed: () {
-              model.title = _itemController.text;
-              controller.save(model);
-              _reset();
-            },
-            color: Colors.blueGrey,
-            child: Text(
-              'ADD',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

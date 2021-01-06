@@ -5,12 +5,16 @@ class ListModel {
   DocumentReference reference;
   int position;
   int id;
+  String owner;
+  List share;
 
   ListModel({
     this.title = '',
     this.reference,
     this.id,
     this.position,
+    this.owner,
+    this.share,
   });
 
   factory ListModel.fromDocument(DocumentSnapshot doc) {
@@ -18,11 +22,18 @@ class ListModel {
       title: doc['title'],
       reference: doc.reference,
       position: doc['position'],
+      owner: doc['owner'],
+      share: doc['share'],
     );
   }
 
   factory ListModel.fromJson(Map<String, dynamic> json) {
-    return ListModel(title: json['title'], id: json['id']);
+    return ListModel(
+      title: json['title'],
+      id: json['id'],
+      owner: json['owner'],
+      share: json['share'],
+    );
   }
 
   Map<String, dynamic> toJson() => {};

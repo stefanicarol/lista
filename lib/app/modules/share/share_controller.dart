@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:listacompra/app/modules/list/item/models/item_model.dart';
+import 'package:listacompra/app/modules/list/models/list_model.dart';
 import 'package:listacompra/app/modules/list/services/interfaces/todo_service_interfaces.dart';
 import 'package:mobx/mobx.dart';
 
-import 'item/models/item_model.dart';
-import 'models/list_model.dart';
+part 'share_controller.g.dart';
 
-part 'list_controller.g.dart';
+@Injectable()
+class ShareController = _ShareControllerBase with _$ShareController;
 
-class ListController = _ListController with _$ListController;
-
-abstract class _ListController with Store {
+abstract class _ShareControllerBase with Store {
   final ITodoService todoService;
 
   String firebaseDoc = '';
@@ -19,7 +20,7 @@ abstract class _ListController with Store {
   @observable
   ObservableStream<List<ListModel>> todoList;
 
-  _ListController({@required this.todoService}) {
+  _ShareControllerBase({@required this.todoService}) {
     getList();
   }
 
@@ -31,11 +32,6 @@ abstract class _ListController with Store {
   @action
   void save(ListModel model) {
     todoService.save(model);
-  }
-
-  @action
-  void share(ListModel model) {
-    todoService.share(model);
   }
 
   @action

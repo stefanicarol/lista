@@ -28,4 +28,9 @@ class TodoService extends Disposable implements ITodoService {
   Future save(ListModel model) {
     return todoRepository.save(model);
   }
+
+  @override
+  Future share(ListModel model) {
+    return todoRepository.share(model);
+  }
 }

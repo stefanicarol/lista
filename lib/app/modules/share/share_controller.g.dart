@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'list_controller.dart';
+part of 'share_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'list_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ListController on _ListControllerBase, Store {
-  final _$todoListAtom = Atom(name: '_ListControllerBase.todoList');
+mixin _$ShareController on _ShareControllerBase, Store {
+  final _$todoListAtom = Atom(name: '_ShareControllerBase.todoList');
 
   @override
   ObservableStream<List<ListModel>> get todoList {
@@ -24,39 +24,39 @@ mixin _$ListController on _ListControllerBase, Store {
     });
   }
 
-  final _$_ListControllerBaseActionController =
-      ActionController(name: '_ListControllerBase');
+  final _$_ShareControllerBaseActionController =
+      ActionController(name: '_ShareControllerBase');
 
   @override
   void getList() {
-    final _$actionInfo = _$_ListControllerBaseActionController.startAction(
-        name: '_ListControllerBase.getList');
+    final _$actionInfo = _$_ShareControllerBaseActionController.startAction(
+        name: '_ShareControllerBase.getList');
     try {
       return super.getList();
     } finally {
-      _$_ListControllerBaseActionController.endAction(_$actionInfo);
+      _$_ShareControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void save(ListModel model) {
-    final _$actionInfo = _$_ListControllerBaseActionController.startAction(
-        name: '_ListControllerBase.save');
+    final _$actionInfo = _$_ShareControllerBaseActionController.startAction(
+        name: '_ShareControllerBase.save');
     try {
       return super.save(model);
     } finally {
-      _$_ListControllerBaseActionController.endAction(_$actionInfo);
+      _$_ShareControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void delete(ListModel model) {
-    final _$actionInfo = _$_ListControllerBaseActionController.startAction(
-        name: '_ListControllerBase.delete');
+    final _$actionInfo = _$_ShareControllerBaseActionController.startAction(
+        name: '_ShareControllerBase.delete');
     try {
       return super.delete(model);
     } finally {
-      _$_ListControllerBaseActionController.endAction(_$actionInfo);
+      _$_ShareControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

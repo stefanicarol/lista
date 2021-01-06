@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:listacompra/app/modules/home/home_controller.dart';
 
 import '../models/list_model.dart';
 import 'interfaces/todo_repository_interface.dart';
 
 class TodoRepository extends Disposable implements ITodoRepository {
   final FirebaseFirestore firestore;
-  // final homeController = Modular.get<ListController>();
 
   TodoRepository({@required this.firestore});
+
+  final homeController = Modular.get<HomeController>();
 
   //dispose will be called automatically
   @override
@@ -42,9 +44,10 @@ class TodoRepository extends Disposable implements ITodoRepository {
     if (model.reference == null) {
       model.reference =
           await FirebaseFirestore.instance.collection('todo').add({
-        //'reference': homeController.firebaseDoc,
         'title': model.title,
         'position': total,
+        'owner': homeController.auth.user.uid,
+        'share': [],
       });
     } else {
       model.reference.update({
@@ -53,6 +56,14 @@ class TodoRepository extends Disposable implements ITodoRepository {
     }
   }
 
+  @override
+  Future share(ListModel model) async {
+    model.reference.update({
+      'share': model.share,
+    });
+  }
+
+  @override
   Future delete(ListModel model) {
     return model.reference.delete();
   }

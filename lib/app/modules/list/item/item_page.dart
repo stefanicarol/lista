@@ -7,7 +7,6 @@ import 'package:listacompra/app/modules/list/list_controller.dart';
 
 import 'models/item_model.dart';
 
-
 class ItemPage extends StatefulWidget {
   @override
   _ItemPageState createState() => _ItemPageState();
@@ -21,9 +20,9 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.blueGrey,
         title: Text(
-          "Itens da Lista ${homeController.firebaseDoc} ",
+          "Itens: ${homeController.firebaseDoc} ",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -85,7 +84,7 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
                           subtitle: Text("Quantidade: ${model.quantity}"),
                           leading: CircleAvatar(
                             backgroundColor:
-                                model.status ? Colors.green : Colors.deepPurple,
+                                model.status ? Colors.green : Colors.red,
                             child:
                                 Icon(model.status ? Icons.check : Icons.error),
                           ),
@@ -146,7 +145,7 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
                       },
                       icon: Icon(
                         Icons.remove,
-                        color: Colors.deepPurple,
+                        color: Colors.blueGrey,
                       ),
                     ),
                     Observer(
@@ -161,7 +160,7 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
                       },
                       icon: Icon(
                         Icons.add,
-                        color: Colors.deepPurple,
+                        color: Colors.blueGrey,
                       ),
                     ),
                   ],
@@ -205,8 +204,8 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
             child: TextFormField(
               controller: _itemController,
               decoration: InputDecoration(
-                labelText: 'Nova Lista',
-                labelStyle: TextStyle(color: Colors.deepPurple),
+                labelText: 'Novo Item',
+                labelStyle: TextStyle(color: Colors.blueGrey),
               ),
             ),
           ),
@@ -218,7 +217,7 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
               controller.save(model);
               _reset();
             },
-            color: Colors.deepPurple,
+            color: Colors.blueGrey,
             child: Text(
               'ADD',
               style: TextStyle(color: Colors.white),
@@ -242,7 +241,7 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
             },
             icon: Icon(
               Icons.remove,
-              color: Colors.deepPurple,
+              color: Colors.blueGrey,
             ),
           ),
           Observer(
@@ -257,7 +256,7 @@ class _ItemPageState extends ModularState<ItemPage, ItemController> {
             },
             icon: Icon(
               Icons.add,
-              color: Colors.deepPurple,
+              color: Colors.blueGrey,
             ),
           ),
         ],
